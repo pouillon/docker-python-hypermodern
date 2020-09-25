@@ -1,0 +1,9 @@
+git
+locales
+mesa-utils
+patch
+python-is-python3
+unzip
+x11-utils
+xvfb
+zip
