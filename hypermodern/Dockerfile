@@ -1,7 +1,11 @@
 # Use an official Ubuntu runtime as a base image
 FROM ubuntu:20.04
 
+# Let the user tune the available Python versions
 ARG SIMUNE_PYTHON_VERSIONS="3.8.5 3.7.9 3.6.12"
+
+# Use Bash for more command-line flexibility
+SHELL ["/bin/bash", "-c"]
 
 # Install the required development packages
 ENV DEBIAN_FRONTEND=noninteractive
