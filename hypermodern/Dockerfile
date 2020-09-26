@@ -35,13 +35,13 @@ USER hypermodern
 ENV HOME /hypermodern
 
 # Install Poetry
-# hadolint ignore=SC2016
+# hadolint ignore=DL4006,SC2016
 RUN set -o pipefail && \
     (curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python) && \
     echo '. "${HOME}/.poetry/env"' >>${HOME}/.bash_profile
 
 # Install Pyenv
-# hadolint ignore=SC2016
+# hadolint ignore=DL4006,SC2016
 RUN set -o pipefail && \
     (curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash) && \
     echo 'export PYENV_ROOT="${HOME}/.pyenv"' >>${HOME}/.bash_profile && \
@@ -69,6 +69,7 @@ RUN . "${HOME}/.bash_profile" && \
 # Create a virtual environment for GUI development
 COPY constraints-gui.txt ./
 COPY requirements-gui.txt ./
+# hadolint ignore=DL4006,SC2016
 RUN set -o pipefail && \
     . "${HOME}/.bash_profile" && \
     default_version="$(echo ${SIMUNE_PYTHON_VERSIONS} | awk '{print $1}')" && \
