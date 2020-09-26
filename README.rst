@@ -1,5 +1,8 @@
-.. image:: https://img.shields.io/github/workflow/status/pouillon/docker-images-python/Lint%20Dockerfile?label=lint
-.. image:: https://img.shields.io/github/license/pouillon/docker-images-python?color=green
+|badge_status| |badge_license|
+
+.. |badge_status| image:: https://img.shields.io/github/workflow/status/pouillon/docker-images-python/Lint%20Dockerfile?label=lint
+
+.. |badge_license| image:: https://img.shields.io/github/license/pouillon/docker-images-python?color=green
 
 
 Docker Images for Python application development
