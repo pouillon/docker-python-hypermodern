@@ -1,5 +1,4 @@
 .. image:: https://img.shields.io/github/workflow/status/pouillon/docker-images-python/Lint%20Dockerfile?label=lint
-
 .. image:: https://img.shields.io/github/license/pouillon/docker-images-python?color=green
 
 
