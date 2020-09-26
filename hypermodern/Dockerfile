@@ -31,11 +31,15 @@ USER hypermodern
 ENV HOME /hypermodern
 
 # Install Poetry
-RUN (curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python) && \
+# hadolint ignore=SC2016
+RUN set -o pipefail && \
+    (curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python) && \
     echo '. "${HOME}/.poetry/env"' >>${HOME}/.bash_profile
 
 # Install Pyenv
-RUN (curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash) && \
+# hadolint ignore=SC2016
+RUN set -o pipefail && \
+    (curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash) && \
     echo 'export PYENV_ROOT="${HOME}/.pyenv"' >>${HOME}/.bash_profile && \
     echo 'export PATH="${PYENV_ROOT}/bin:${PATH}"' >>${HOME}/.bash_profile && \
     echo 'eval "$(pyenv init -)"' >>${HOME}/.bash_profile && \
@@ -61,8 +65,10 @@ RUN . "${HOME}/.bash_profile" && \
 # Create a virtual environment for GUI development
 COPY constraints-gui.txt ./
 COPY requirements-gui.txt ./
-RUN . "${HOME}/.bash_profile" && \
-    pyenv virtualenv $(echo "${SIMUNE_PYTHON_VERSIONS}" | awk '{print $1}') gui-dev && \
+RUN set -o pipefail && \
+    . "${HOME}/.bash_profile" && \
+    default_version="$(echo ${SIMUNE_PYTHON_VERSIONS} | awk '{print $1}')" && \
+    pyenv virtualenv "${default_version}" gui-dev && \
     pyenv activate gui-dev && \
     pip install -r requirements-hypermodern.txt && \
     pip install -c constraints-gui.txt -r requirements-gui.txt && \
