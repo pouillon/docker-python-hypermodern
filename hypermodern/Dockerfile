@@ -61,10 +61,10 @@ RUN . "${HOME}/.bash_profile" && \
 # Install the tooling
 RUN . "${HOME}/.bash_profile" && \
     for version in ${SIMUNE_PYTHON_VERSIONS}; do \
-      pyenv shell "${version}" && \
-      pip install -r requirements-hypermodern.txt && \
-      pyenv shell --unset; \
-    done
+      pyenv local "${version}" && \
+      pip install -r requirements-hypermodern.txt; \
+    done && \
+    pyenv local ${SIMUNE_PYTHON_VERSIONS}
 
 # Create a virtual environment for GUI development
 COPY constraints-gui.txt ./
