@@ -10,3 +10,21 @@ if test "${PYENV_ROOT}" = ""; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
+
+echo ""
+echo "Hypermodern Development Environment:"
+echo ""
+
+python --version
+python -m pip --version
+python -m wheel version
+echo ""
+
+nox --version
+poetry --version
+pre-commit --version
+echo ""
+
+pyenv --version
+pyenv virtualenvs
+echo ""
