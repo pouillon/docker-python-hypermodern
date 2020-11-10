@@ -2,19 +2,22 @@
 # Makefile for the Docker images to produce documentation on Debian
 #
 
+hypermodern_version = 1.0.0
+
 hypermodern_srcs = \
   hypermodern/Dockerfile \
   hypermodern/app-constraints.txt \
   hypermodern/app-requirements.txt \
   hypermodern/hypermodern-constraints.txt \
-  hypermodern/hypermodern-env.sh \
   hypermodern/hypermodern-requirements.txt \
   hypermodern/install-app-env.sh \
   hypermodern/install-hypermodern-env.sh \
+  hypermodern/load-hypermodern-env.sh \
   hypermodern/packages-python.txt \
-  hypermodern/packages-system.txt
+  hypermodern/packages-system.txt \
+  hypermodern/show-current-env.sh
 
-hypermodern_tag = pouillon/python:hypermodern-focal-$(shell date '+%Y%m%d')
+hypermodern_tag = pouillon/python:hypermodern-focal-$(hypermodern_version)
 
 DEBUG ?= 0
 ifeq ($(DEBUG),1)
