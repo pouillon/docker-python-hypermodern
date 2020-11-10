@@ -14,13 +14,25 @@ hypermodern_srcs = \
   hypermodern/packages-python.txt \
   hypermodern/packages-system.txt
 
+hypermodern_tag = pouillon/python:hypermodern-focal-$(shell date '+%Y%m%d')
+
+DEBUG ?= 0
+ifeq ($(DEBUG),1)
+  docker_opts = --progress=plain
+else
+  docker_opts = --progress=auto
+endif
+
+# Only give instructions to the user by default
 all all_targets default: hypermodern-image
 
 hypermodern-image: $(hypermodern_srcs)
-	cd hypermodern && docker build -t pouillon/python:hypermodern-focal-latest .
+	cd hypermodern && \
+	  DOCKER_BUILDKIT=1 \
+	  docker build $(docker_opts) --tag $(hypermodern_tag) .
 
 upload: hypermodern-image
-	docker push pouillon/python:hypermodern-focal-latest
+	docker push $(hypermodern_tag)
 
 clean:
 	@echo "Nothing to do."
