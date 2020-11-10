@@ -20,7 +20,7 @@ python -m pip --version
 python -m wheel version
 echo ""
 
-nox --version
+echo "Nox $(nox --version)"
 poetry --version
 pre-commit --version
 echo ""
