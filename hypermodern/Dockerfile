@@ -39,10 +39,14 @@ RUN apt-get update -y && \
     rm -rf /var/cache/apt && \
     rm -rf /var/lib/apt/lists/*
 
-# Install the hypermodern Python environment
+# Make the hypermodern environment loadable
+# Note: These files are required at this location in the following steps.
 WORKDIR /root
+COPY load-hypermodern-env.sh ./
+COPY show-current-env.sh ./
+RUN chmod u=rw,g=r,o=r ./load-hypermodern-env.sh && \
+    chmod u=rwx,g=rx,o=rx ./show-current-env.sh
 COPY hypermodern-constraints.txt ./
-COPY hypermodern-env.sh ./
 COPY hypermodern-requirements.txt ./
 COPY install-hypermodern-env.sh ./
 RUN /bin/bash ./install-hypermodern-env.sh ${SIMUNE_PYTHON_VERSIONS}

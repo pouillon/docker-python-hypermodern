@@ -14,7 +14,7 @@ fi
 unset tmp_chk_args
 
 # Update the environment
-. "${HOME}/hypermodern-env.sh"
+. "${HOME}/load-hypermodern-env.sh"
 
 # Create a virtual environment for application development
 python_default=`echo "${python_versions}" | awk '{print $1}'`
