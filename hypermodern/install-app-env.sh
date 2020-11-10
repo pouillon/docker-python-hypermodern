@@ -20,6 +20,8 @@ unset tmp_chk_args
 python_default=`echo "${python_versions}" | awk '{print $1}'`
 pyenv virtualenv "${python_default}" hypermodern
 pyenv activate hypermodern
+pip install --upgrade pip
+pip install --upgrade wheel
 pip install -c hypermodern-constraints.txt -r hypermodern-requirements.txt
 pip install -c app-constraints.txt -r app-requirements.txt
 pyenv deactivate

@@ -27,6 +27,8 @@ for version in ${python_versions}; do
   pyenv install "${version}"
   pyenv rehash
   pyenv local "${version}"
+  pip install --upgrade pip
+  pip install --upgrade wheel
   pip install -c hypermodern-constraints.txt -r hypermodern-requirements.txt
 done
 pyenv local ${python_versions}
