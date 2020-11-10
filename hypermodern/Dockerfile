@@ -28,13 +28,8 @@ RUN echo "C.UTF-8 UTF-8" >/etc/locale.gen && \
     echo "LANG=\"C.UTF-8\"" >/etc/default/locale && \
     echo "LC_ALL=\"C.UTF-8\"" >>/etc/default/locale
 
-# Create a non-privileged user
-RUN adduser --home /hypermodern --disabled-password --gecos '' hypermodern
-WORKDIR /hypermodern
-USER hypermodern
-ENV HOME /hypermodern
-
 # Install the hypermodern Python environment
+WORKDIR /root
 COPY hypermodern-constraints.txt ./
 COPY hypermodern-env.sh ./
 COPY hypermodern-requirements.txt ./
