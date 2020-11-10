@@ -1,5 +1,5 @@
 # Use an official Ubuntu runtime as a base image
-FROM ubuntu:focal
+FROM ubuntu:20.04
 
 # Let the user tune the available Python versions
 ARG SIMUNE_PYTHON_VERSIONS="3.8.5 3.7.9 3.6.12"
@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 SHELL ["/bin/bash", "-c"]
 
 # Install the required development packages
-WORKDIR /root
+WORKDIR /root/tmp
 COPY packages-system.txt ./
 RUN apt-get update -y && \
     apt-get install apt-utils -y && \
@@ -30,7 +30,7 @@ RUN echo "C.UTF-8 UTF-8" >/etc/locale.gen && \
     echo "LC_ALL=\"C.UTF-8\"" >>/etc/default/locale
 
 # Install the required development packages
-WORKDIR /root
+WORKDIR /root/tmp
 COPY packages-python.txt ./
 RUN apt-get update -y && \
     /bin/bash -c "xargs -a <(awk '/^\s*[^#]/' packages-python.txt) -r -- apt-get install -y --no-install-recommends" && \
@@ -46,19 +46,27 @@ COPY load-hypermodern-env.sh ./
 COPY show-current-env.sh ./
 RUN chmod u=rw,g=r,o=r ./load-hypermodern-env.sh && \
     chmod u=rwx,g=rx,o=rx ./show-current-env.sh
+
+# Install the hypermodern Python environment
+WORKDIR /root/tmp
 COPY hypermodern-constraints.txt ./
 COPY hypermodern-requirements.txt ./
 COPY install-hypermodern-env.sh ./
 RUN /bin/bash ./install-hypermodern-env.sh ${SIMUNE_PYTHON_VERSIONS}
 
 # Create a virtual environment for application development
+WORKDIR /root/tmp
 COPY app-constraints.txt ./
 COPY app-requirements.txt ./
 COPY install-app-env.sh ./
 RUN /bin/bash ./install-app-env.sh ${SIMUNE_PYTHON_VERSIONS}
 
+# Clean-up the mess
+WORKDIR /root
+RUN rm -rf /root/tmp
+
 # Define the container name
-ENV NAME hypermodern-focal
+ENV NAME python-hypermodern-focal
 
 # Open a terminal when the container launches
 CMD ["/bin/bash", "-login"]
