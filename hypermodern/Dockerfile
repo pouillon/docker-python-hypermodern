@@ -4,18 +4,19 @@ FROM ubuntu:focal
 # Let the user tune the available Python versions
 ARG SIMUNE_PYTHON_VERSIONS="3.8.5 3.7.9 3.6.12"
 
-# Use Bash for more command-line flexibility
+# Adjust system parameters
+ENV DEBIAN_FRONTEND="noninteractive"
+
+# Use Bash as default shell for more command-line flexibility
 SHELL ["/bin/bash", "-c"]
 
 # Install the required development packages
-ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /root
 COPY packages-system.txt ./
-COPY packages-python.txt ./
 RUN apt-get update -y && \
     apt-get install apt-utils -y && \
-    apt-get upgrade -y && \
     /bin/bash -c "xargs -a <(awk '/^\s*[^#]/' packages-system.txt) -r -- apt-get install -y" && \
-    /bin/bash -c "xargs -a <(awk '/^\s*[^#]/' packages-python.txt) -r -- apt-get install -y --no-install-recommends" && \
+    apt-get purge -y *-doc && \
     apt-get clean && \
     rm -rf /var/cache/apt && \
     rm -rf /var/lib/apt/lists/*
@@ -27,6 +28,16 @@ RUN echo "C.UTF-8 UTF-8" >/etc/locale.gen && \
     update-locale LANG="C.UTF-8" && \
     echo "LANG=\"C.UTF-8\"" >/etc/default/locale && \
     echo "LC_ALL=\"C.UTF-8\"" >>/etc/default/locale
+
+# Install the required development packages
+WORKDIR /root
+COPY packages-python.txt ./
+RUN apt-get update -y && \
+    /bin/bash -c "xargs -a <(awk '/^\s*[^#]/' packages-python.txt) -r -- apt-get install -y --no-install-recommends" && \
+    apt-get purge -y *-doc && \
+    apt-get clean && \
+    rm -rf /var/cache/apt && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install the hypermodern Python environment
 WORKDIR /root
