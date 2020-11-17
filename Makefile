@@ -2,7 +2,7 @@
 # Makefile for the Docker images to produce documentation on Debian
 #
 
-hypermodern_version = 1.0.0
+hypermodern_version = 1.1.0
 
 hypermodern_srcs = \
   hypermodern/Dockerfile \

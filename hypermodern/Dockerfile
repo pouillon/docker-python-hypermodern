@@ -47,6 +47,16 @@ COPY show-current-env.sh ./
 RUN chmod u=rw,g=r,o=r ./load-hypermodern-env.sh && \
     chmod u=rwx,g=rx,o=rx ./show-current-env.sh
 
+# Install the required packages for the testing environment
+WORKDIR /root/tmp
+COPY packages-pytestqt.txt ./
+RUN apt-get update -y && \
+    /bin/bash -c "xargs -a <(awk '/^\s*[^#]/' packages-pytestqt.txt) -r -- apt-get install -y --no-install-recommends" && \
+    apt-get purge -y *-doc && \
+    apt-get clean && \
+    rm -rf /var/cache/apt && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install the hypermodern Python environment
 WORKDIR /root/tmp
 COPY hypermodern-constraints.txt ./

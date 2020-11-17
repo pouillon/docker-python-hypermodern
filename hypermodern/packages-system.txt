@@ -5,6 +5,4 @@ patch
 python-is-python3
 unzip
 x11-utils
-xauth
-xvfb
 zip
