@@ -1,7 +1,9 @@
 git
 locales
 mesa-utils
+openssh-client
 patch
+pinentry-tty
 python-is-python3
 unzip
 x11-utils
