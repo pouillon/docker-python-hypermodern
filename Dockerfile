@@ -64,13 +64,6 @@ COPY hypermodern-requirements.txt ./
 COPY install-hypermodern-env.sh ./
 RUN /bin/bash ./install-hypermodern-env.sh ${SIMUNE_PYTHON_VERSIONS}
 
-# Create a virtual environment for application development
-WORKDIR /root/tmp
-COPY app-constraints.txt ./
-COPY app-requirements.txt ./
-COPY install-app-env.sh ./
-RUN /bin/bash ./install-app-env.sh ${SIMUNE_PYTHON_VERSIONS}
-
 # Clean-up the mess
 WORKDIR /root
 RUN rm -rf /root/tmp
