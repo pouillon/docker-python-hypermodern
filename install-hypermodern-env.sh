@@ -13,10 +13,7 @@ if test "${tmp_chk_args}" = ""; then
 fi
 unset tmp_chk_args
 
-# Install Poetry
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-
-# Install Pyenv
+# Install pyenv
 curl -sSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
 # Update the environment
@@ -28,8 +25,10 @@ for version in ${python_versions}; do
   pyenv rehash
   pyenv local "${version}"
   pip install --upgrade pip
+  pip install --upgrade setuptools
   pip install --upgrade wheel
   pip install -c hypermodern-constraints.txt -r hypermodern-requirements.txt
+  poetry config virtualenvs.in-project true
 done
 pyenv local ${python_versions}
 pyenv global ${python_versions}
