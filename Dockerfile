@@ -2,7 +2,8 @@
 FROM ubuntu:20.04
 
 # Let the user tune the available Python versions
-ARG SIMUNE_PYTHON_VERSIONS="3.8.5 3.7.9 3.6.12"
+# Note: the first version listed here will be the default one
+ARG SIMUNE_PYTHON_VERSIONS="3.7.10 3.8.8 3.9.2 3.6.13"
 
 # Adjust system parameters
 ENV DEBIAN_FRONTEND="noninteractive"

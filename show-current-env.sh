@@ -22,7 +22,6 @@ echo ""
 
 echo "Nox $(nox --version)"
 poetry --version
-pre-commit --version
 echo ""
 
 exit 0
