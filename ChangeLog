@@ -1,0 +1,15 @@
+2021-04-16  Yann Pouillon  <yann.pouillon@materialsevolution.es>
+
+	Restructure the source code and update supported Python versions
+
+2020-11-10  Yann Pouillon  <yann.pouillon@materialsevolution.es>
+
+	Add missing dependencies for the test suite
+
+2020-11-10  Yann Pouillon  <yann.pouillon@materialsevolution.es>
+
+	First release of the Hypermodern Docker image
+
+Copyright 2020, 2021 Yann Pouillon
+Copying and distribution of this file, with or without modification, are
+permitted provided the copyright notice and this notice are preserved.
