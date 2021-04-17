@@ -10,5 +10,5 @@ jobs:
       - name: Lint Hypermodern Image
         uses: brpaz/hadolint-action@master
         with:
-          dockerfile: "hypermodern/Dockerfile"
+          dockerfile: "Dockerfile"
 
