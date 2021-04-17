@@ -6,11 +6,8 @@ hypermodern_version = 1.2.0
 
 hypermodern_srcs = \
   Dockerfile \
-  app-constraints.txt \
-  app-requirements.txt \
   hypermodern-constraints.txt \
   hypermodern-requirements.txt \
-  install-app-env.sh \
   install-hypermodern-env.sh \
   load-hypermodern-env.sh \
   packages-pytestqt.txt \
@@ -37,7 +34,7 @@ hypermodern-image: $(hypermodern_srcs)
 upload: hypermodern-image
 	docker push $(hypermodern_tag)
 
-clean:
+clean distclean:
 	@echo "Nothing to do."
 
-.PHONY: all all_targets clean default hypermodern-image upload
+.PHONY: all all_targets clean default distclean hypermodern-image upload
